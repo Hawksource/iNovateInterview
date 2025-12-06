@@ -1,4 +1,4 @@
-import {type ChangeEvent, useState} from "react";
+import {useState} from "react";
 import {calcFib} from "./Fib.tsx";
 import {calcFizzBuzz} from "./FizzBuzz.tsx";
 
