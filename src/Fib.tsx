@@ -1,8 +1,8 @@
 import {useState} from "react";
 
 export const calcFib = (input:number, offset1:number|undefined, offset2:number|undefined):number[] => {
-    if(offset1===undefined) {offset1 = 1;}
-    if(offset2 ===undefined) {offset2 = 2;}
+    if(offset1===undefined || offset1 < 0) {offset1 = 1;}
+    if(offset2 ===undefined || offset2 <0) {offset2 = 2;}
 
     let ret:number[] = [];
     for(let i = 1;i<=input;i+=1) {
@@ -22,12 +22,10 @@ const Fib = () => {
     const [offset1, setOffset1] = useState<number|undefined>(undefined);
     const [offset2, setOffset2] = useState<number|undefined>(undefined);
     const [fibInput, setFibInput] = useState<number>(0);
-    const [fibOutput, setFibOutput] = useState<Element[]>([]);
+    const [fibOutput, setFibOutput] = useState<number[]>([]);
 
     const handleChange = () => {
-        const elements = calcFib(fibInput,offset1,offset2).map((num)=> {
-            return <p key={num+Math.random()}>{num}</p>
-        });
+        const elements = calcFib(fibInput,offset1,offset2);
         setFibOutput(elements);
     }
 
@@ -60,7 +58,9 @@ const Fib = () => {
                     type={"submit"}
                     onClick={()=>{handleChange()}}
                 />
-                {fibOutput}
+                {fibOutput.map((num:number,index:number)=>{
+                    return <p key={index}>{num}</p>
+                })}
             </div>
         </>
     )
